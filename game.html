@@ -1,12 +1,15 @@
 <html>
     <script>
-        function changeToX(){
-            var TurnCount = 0;
-            var cell00 = document.getElementById('c00');
-            var XforO = document.createElement('a');
-            turnCount++;
+     var cell_00 = document.getElementById
+     
 
-        }
+     	var N_SIZE = 3,
+		EMPTY = "&nbsp;",
+		boxes = [],
+		turn = "X",
+		score,
+        moves;
+        
     </script>
     <style>
         td {
@@ -18,22 +21,21 @@
     </style>
     
     <table>
-        <tr class="row0">
-                <td id="c00" onclick="changeToX()"><a href="javascript:alert('sup nerds');">?</a>
-                </td>
-                <td id="c01"></td>
-                <td id="c02"></td>
-              </tr>
-              <tr class="row1">
-                <td id="c10"></td>
-                <td id="c11"></td>
-                <td id="c12"></td>
-              </tr>
-              <tr class="row2">
-                <td id="c20"></td>
-                <td id="c21"></td>
-                <td id="c22"></td>
-              </tr>
+        <tr>
+            <td class="cell" id="c00"></td>
+            <td class="cell" id="c01"></td>
+            <td class="cell" id="c02"></td>
+        </tr>
+        <tr>
+            <td class="cell" id="c10"></td>
+            <td class="cell" id="c11"></td>
+            <td class="cell" id="c12"></td>
+        </tr>
+        <tr>
+            <td class="cell" id="c20"></td>
+            <td class="cell" id="c21"></td>
+            <td class="cell" id="c22"></td>
+        </tr>
     </table>
     
   </html>
