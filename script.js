@@ -1,59 +1,4 @@
-<html>
-    <head>
-        <style>
-            #container {
-    width: 320px;
-    height: 320px;
-    margin: auto;
-    margin-top: 100px;
-}
-#container h1 {
-    text-align: center;
-    font-size: 40px;
-    margin-bottom: 50px;
-}
-.q {
-    width: 100px;
-    height: 100px;
-    float: left;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    text-align: center;
-    font-family: Helvetica;
-    font-weight: lighter;
-    font-size: 100px;
-}
-.q:hover {
-    background-color: ghostwhite;
-}
-#q0, #q1, #q2, #q3, #q4, #q5 {
-    border-bottom: 10px solid black;
-} 
-#q2, #q5, #q8, #q1, #q4, #q7 {
-    border-left: 10px solid black;
-} 
-.winner {
-    color: green;
-}
-        </style>
-        
-    </head>
-    <body>
-        <div id="container">
-        <h1>Tic Tac Toe</h1>
-        <div class="q" id="q0"></div>
-        <div class="q" id="q1"></div>
-        <div class="q" id="q2"></div>
-        <div class="q" id="q3"></div>
-        <div class="q" id="q4"></div>
-        <div class="q" id="q5"></div>
-        <div class="q" id="q6"></div>
-        <div class="q" id="q7"></div>
-        <div class="q" id="q8"></div>
-        </div>
-        <script>
-        const winningCombos = [
+const winningCombos = [
     [0,1,2],
     [3,4,5],
     [6,7,8],
@@ -108,6 +53,3 @@ const enableListeners = () => grid().forEach(_qEl => _qEl.addEventListener('clic
 const disableListeners = () => grid().forEach(_qEl => _qEl.removeEventListener('click', clickFn));
 
 enableListeners();
-        </script>
-    </body>
-</html>
