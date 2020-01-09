@@ -9,6 +9,7 @@
             }
             .msg-bar {
                 text-align: center;
+                font-family: Arial, Helvetica, sans-serif;
             }
             .start-game {
                 margin: auto;
@@ -30,6 +31,9 @@
                 text-align: center;
                 padding: 1em;            
             }  
+            .container {
+                font-family: Arial, Helvetica, sans-serif;
+            }
         </style>
     </head>
     <body>
@@ -38,28 +42,140 @@
             <table>
                 <tr>
                     <td class="msg-bar" colspan="3">
-                        Make a move or DIE!
+                        Press New Game!
                     </td>
                 </tr>
                 <tr>
-                    <td class="box" >O</td>
-                    <td class="box" >X</td>
-                    <td class="box" >X</td>
+                    <td class="box" id="box1"></td>
+                    <td class="box" id="box2"></td>
+                    <td class="box" id="box3"></td>
                 </tr>
                 <tr>
-                    <td class="box" >X</td>
-                    <td class="box" >O</td>
-                    <td class="box" >O</td>
+                    <td class="box" id="box4"></td>
+                    <td class="box" id="box5"></td>
+                    <td class="box" id="box6"></td>
                 </tr>
                 <tr>
-                    <td class="box" ></td>
-                    <td class="box" ></td>
-                    <td class="box" >O</td>
+                    <td class="box" id="box7"></td>
+                    <td class="box" id="box8"></td>
+                    <td class="box" id="box9"></td>
                 </tr>
+            
             </table>
+            
             <div id="buttons-div1">
                 <button class="start-game">NEW GAME</button>
             </div>
         </div>
-    </body>  
+    </body>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        var startTurn = 1;
+        var turn = startTurn;
+        var count = 0;
+        $(".box").click(function() {
+            if (turn == 1) {
+                if ($(this).text() == " ") {
+                    turn = 2;
+                    $(this).html("X");
+                    $('.msg-bar').html("Player O's Turn!");
+                    count++;
+                }
+            } else if (turn == 2) {
+                if ($(this).text() == " "){
+                    turn = 1;
+                    $(this).html("O");
+                    $('.msg-bar').html("Player X's Turn!");
+                    count++;
+                }   
+            }
+            if(checkWinner()){
+                turn = 3;
+            } 
+        });
+        function checkWinner(){
+            if(($('#box1').text() + $('#box2').text() + $('#box3').text()) == "XXX"){
+                winX();
+                return true;
+            }else if(($('#box4').text() + $('#box5').text() + $('#box6').text()) == "XXX"){
+                winX();
+                return true;
+            }else if(($('#box7').text() + $('#box8').text() + $('#box9').text()) == "XXX"){
+                winX();
+                return true;
+            }else if(($('#box1').text() + $('#box4').text() + $('#box7').text()) == "XXX"){
+                winX();
+                return true;
+            }else if(($('#box2').text() + $('#box5').text() + $('#box8').text()) == "XXX"){
+                winX();
+                return true;
+            }else if(($('#box3').text() + $('#box6').text() + $('#box9').text()) == "XXX"){
+                winX();
+                return true;
+            }else if(($('#box1').text() + $('#box5').text() + $('#box9').text()) == "XXX"){
+                winX();
+                return true;
+            }else if(($('#box3').text() + $('#box5').text() + $('#box7').text()) == "XXX"){
+                winX();
+                return true;
+            }else if(($('#box1').text() + $('#box2').text() + $('#box3').text()) == "OOO"){
+                winO();
+                return true;
+            }else if(($('#box4').text() + $('#box5').text() + $('#box6').text()) == "OOO"){
+                winO();
+                return true;
+            }else if(($('#box7').text() + $('#box8').text() + $('#box9').text()) == "OOO"){
+                winO();
+                return true;
+            }else if(($('#box1').text() + $('#box4').text() + $('#box7').text()) == "OOO"){
+                winO();
+                return true;
+            }else if(($('#box2').text() + $('#box5').text() + $('#box8').text()) == "OOO"){
+                winO();
+                return true;
+            }else if(($('#box3').text() + $('#box6').text() + $('#box9').text()) == "OOO"){
+                winO();
+                return true;
+            }else if(($('#box1').text() + $('#box5').text() + $('#box9').text()) == "OOO"){
+                winO();
+                return true;
+            }else if(($('#box3').text() + $('#box5').text() + $('#box7').text()) == "OOO"){
+                winO();
+                return true;
+            }
+            if (count == 9){
+                $('.msg-bar').html('Draw!');
+                turn = 3;
+            }
+        }
+        function winX() {
+            $('.msg-bar').html('Player X Wins!');
+        }
+        function winO(){
+            $('.msg-bar').html('Player O Wins!');
+        }
+        $(".start-game").click(function() {
+
+            if ( turn == 1 ) {
+                $('.msg-bar').text("Player O Go!");
+            
+            } else if (turn == 2) {
+                $('.msg-bar').text("Player X Go!")
+            }
+
+            $('.box').html(" ");
+            
+            count = 0;
+            if (startTurn == 1) {
+                startTurn = 2;
+                turn = startTurn;
+            }
+            else {
+                startTurn = 1;
+                turn = startTurn;
+            }
+            
+        })
+    </script>
+    
 </html>
