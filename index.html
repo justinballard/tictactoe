@@ -1,114 +1,234 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
         <style>
-            #container {
-    width: 320px;
-    height: 320px;
-    margin: auto;
-    margin-top: 100px;
-}
-#container h1 {
-    text-align: center;
-    font-size: 40px;
-    margin-bottom: 50px;
-}
-.q {
-    width: 100px;
-    height: 100px;
-    float: left;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    text-align: center;
-    font-family: Helvetica;
-    font-weight: lighter;
-    font-size: 100px;
-}
-.q:hover {
-    background-color: ghostwhite;
-}
-#q0, #q1, #q2, #q3, #q4, #q5 {
-    border-bottom: 10px solid black;
-} 
-#q2, #q5, #q8, #q1, #q4, #q7 {
-    border-left: 10px solid black;
-} 
-.winner {
-    color: green;
-}
+            body {
+                background-color: #222;
+            }
+            h2 {
+                color: rgba(50, 115, 220, 0.7);
+            }
+            td {
+                border:1px solid;
+                height: 100px;
+                width: 100px;
+            }
+            .no-line{
+                border-color: transparent;
+                border-top: hidden;
+            }
+            table {
+                border-collapse: collapse;
+                background-color: #fff;
+            }
+            td {
+                border: 1px solid #ccc;
+            }
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+            .msg-bar {
+                text-align: center;
+            }
+            .start-game {
+                margin: auto;
+            }
+            .box {
+                text-align: center;
+                font-size: larger;
+                font-weight: 700;
+            }
+            table {
+                border:31px solid rgba(50, 115, 220, 0.3);
+                margin: auto;
+            }
+            h1 {
+                text-align: center;
+            }
+            #buttons-div1 {
+                text-align: center;
+                padding: 1em;            
+            }
+            .container {
+                padding-top: 6em;
+                font-family: Arial, Helvetica, sans-serif;
+            }  
+
+            .fade-in {
+                animation: fadeIn ease 3s;
+                -webkit-animation: fadeIn ease 3s;
+                -moz-animation: fadeIn ease 3s;
+                -o-animation: fadeIn ease 3s;
+                -ms-animation: fadeIn ease 3s;
+            }
+
+            @keyframes fadeIn{
+                0% {
+                    opacity:0;
+                }
+                100% {
+                    opacity:1;
+                }
+            }
+
+            @-moz-keyframes fadeIn {
+                0% {
+                    opacity:0;
+                }
+                100% {
+                    opacity:1;
+                }
+            }
+
+            @-webkit-keyframes fadeIn {
+                0% {
+                    opacity:0;
+                }
+                100% {
+                    opacity:1;
+                }
+            }
+
+            @-o-keyframes fadeIn {
+                0% {
+                    opacity:0;
+                }
+                100% {
+                    opacity:1;
+                }
+            }
+
+            @-ms-keyframes fadeIn {
+                0% {
+                    opacity:0;
+                }
+                100% {
+                    opacity:1;
+                }
+            }
         </style>
-        
     </head>
     <body>
-        <div id="container">
-        <h1>Tic Tac Toe</h1>
-        <div class="q" id="q0"></div>
-        <div class="q" id="q1"></div>
-        <div class="q" id="q2"></div>
-        <div class="q" id="q3"></div>
-        <div class="q" id="q4"></div>
-        <div class="q" id="q5"></div>
-        <div class="q" id="q6"></div>
-        <div class="q" id="q7"></div>
-        <div class="q" id="q8"></div>
+        <div class="container fade-in">
+            <table class="roundedCorners">
+                <div id="buttons-div1">
+                    <button type="button" class="btn btn-info start-game">Start New Game</button>
+                </div>
+                <tr>
+                    <td class="msg-bar" colspan="3">
+                        <h2>Tic-Tac-Toesies</h2>
+                    </td>
+                </tr>
+                <tr class="no-line">
+                    <td class="box" id="box1"></td>
+                    <td class="box" id="box2"></td>
+                    <td class="box" id="box3"></td>
+                </tr>
+                <tr>
+                    <td class="box" id="box4"></td>
+                    <td class="box" id="box5"></td>
+                    <td class="box" id="box6"></td>
+                </tr>
+                <tr>
+                    <td class="box" id="box7"></td>
+                    <td class="box" id="box8"></td>
+                    <td class="box" id="box9"></td>
+                </tr>
+            </table>
         </div>
-        
-        <script>
-        const winningCombos = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,4,8],
-    [2,4,6],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8]
-];
-
-const grid = () => Array.from(document.getElementsByClassName('q'));
-const qNumId = (qEl) => Number.parseInt(qEl.id.replace('q', ''));
-const emptyQs = () => grid().filter(_qEl => _qEl.innerText === '');
-const allSame = (arr) => arr.every(_qEl => _qEl.innerText === arr[0].innerText && _qEl.innerText !== ''); 
-
-const takeTurn = (index, letter) => grid()[index].innerText = letter;
-const opponentChoice = () => qNumId(emptyQs()[Math.floor(Math.random() * emptyQs().length)]);
-
-const endGame = (winningSequence) => { 
-    winningSequence.forEach(_qEl => _qEl.classList.add('winner'));
-    disableListeners();
-};
-const checkForVictory = () => {
-    let victory = false;
-    winningCombos.forEach(_c => {
-        const _grid = grid();
-        const sequence = [_grid[_c[0]], _grid[_c[1]], _grid[_c[2]]];
-        if(allSame(sequence)) {
-            victory = true;
-            endGame(sequence);
-        }
-    });
-    return victory;
-};
-
-const opponentTurn = () => {
-    disableListeners();
-    setTimeout(() => {
-        takeTurn(opponentChoice(), 'o');
-        if(!checkForVictory())
-            enableListeners();
-    }, 1000);
-}
-
-const clickFn = ($event) => {
-    takeTurn(qNumId($event.target), 'x');
-    if(!checkForVictory())
-        opponentTurn();
-};
-
-const enableListeners = () => grid().forEach(_qEl => _qEl.addEventListener('click', clickFn));
-const disableListeners = () => grid().forEach(_qEl => _qEl.removeEventListener('click', clickFn));
-
-enableListeners();
-        </script>
     </body>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        var startTurn = 1;
+        var turn = startTurn;
+        var count = 0;
+        $(".box").click(function() {
+            if (turn == 1) {
+                if ($(this).text() == " ") {
+                    turn = 2;
+                    $(this).html("X");
+                    $('.msg-bar').html("<h2>Player O's turn</h2>");
+                    count++;
+                }
+            } else if (turn == 2) {
+                if ($(this).text() == " "){
+                    turn = 1;
+                    $(this).html("O");
+                    $('.msg-bar').html("<h2>Player X's turn</h2>");
+                    count++;
+                }   
+            }
+            checkWinner(); 
+        });
+
+        function checkWinner(){
+            // values of squares
+            var box1 = $('#box1').text();
+            var box2 = $('#box2').text();
+            var box3 = $('#box3').text(); 
+            var box4 = $('#box4').text();
+            var box5 = $('#box5').text();
+            var box6 = $('#box6').text();
+            var box7 = $('#box7').text();
+            var box8 = $('#box8').text();
+            var box9 = $('#box9').text();
+
+            // winning combos = x
+            var win1 = box1 + box2 + box3;
+            var win2 = box4 + box5 + box6;
+            var win3 = box7 + box8 + box9;
+            var win4 = box1 + box4 + box7;
+            var win5 = box2 + box5 + box8;
+            var win6 = box3 + box6 + box9;
+            var win7 = box1 + box5 + box9;
+            var win8 = box3 + box5 + box7;
+            
+            // winning combos = o
+            var win9 = box1 + box2 + box3;
+            var win10 = box4 + box5 + box6;
+            var win11 = box7 + box8 + box9;
+            var win12 = box1 + box4 + box7;
+            var win13 = box2 + box5 + box8;
+            var win14 = box3 + box6 + box9;
+            var win15 = box1 + box5 + box9;
+            var win16 = box3 + box5 + box7;
+
+            if ( ( win1 == "XXX" ) || ( win2 == "XXX" ) || ( win3 == "XXX" ) || ( win4 == "XXX" ) || (  win5 == "XXX" ) || ( win6 == "XXX" ) || ( win7 == "XXX" ) || ( win8 == "XXX" ) ) {
+                winnerX();
+                return true;
+            } else if ( ( win9 == "OOO" ) || ( win10 == "OOO" ) || ( win11 == "OOO" ) || ( win12 == "OOO" ) || ( win13 == "OOO" ) || ( win14 == "OOO" ) || ( win15 == "OOO" ) || ( win16 == "OOO" ) ) {
+                winnerO();
+                return true;
+            }
+            if (count == 9){
+                $('.msg-bar').html('<h2>No one wins</h2>');
+            }
+        }
+        
+        function winnerX() {
+            $('.msg-bar').html('<h2>Player X Wins</h2>');
+        }
+        
+        function winnerO(){
+            $('.msg-bar').html('<h2>Player O Wins</h2>');
+        }
+        
+        $(".start-game").click(function() {
+            $('.box').html(" ");
+            $('.msg-bar').html("<h2>Start!</h2>");
+
+            count = 0;
+            if (startTurn == 1) {
+                startTurn = 2;
+                turn = startTurn;
+            }
+            else {
+                startTurn = 1;
+                turn = startTurn;
+            }
+        })
+    </script>
 </html>
